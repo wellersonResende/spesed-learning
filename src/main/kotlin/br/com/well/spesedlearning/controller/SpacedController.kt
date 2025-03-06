@@ -18,8 +18,9 @@ import java.util.Optional
 
 class SpacedController (val subjectRepository: SubjectRepository){
     @GetMapping
-    fun getSpaced(): String {
-        return "Spaced"
+    fun getAllSubject(): List<Subject> {
+        val subjects = subjectRepository.findAll()
+        return subjects
     }
 
     @GetMapping("/subject/{uuid}")
