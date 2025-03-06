@@ -1,13 +1,5 @@
-# Create a new .gitignore with the correct content
-cat > .gitignore << 'EOF'
 # Gradle
 .gradle/
-.gradle/**
-.gradle/buildOutputCleanup/
-.gradle/buildOutputCleanup/buildOutputCleanup.lock
-.gradle/buildOutputCleanup/cache.properties
-.gradle/buildOutputCleanup/outputFiles.bin
-.gradle/file-system.probe
 build/
 !gradle/wrapper/gradle-wrapper.jar
 
@@ -17,10 +9,13 @@ build/
 *.iml
 *.ipr
 out/
+**/build-history.bin
+**/*.tab
+**/*.tab.*
+**/last-build.bin
 
 # Spring Boot
 target/
-spring-boot-starter/target/
 .spring-boot-devtools
 
 # Compiled class files
@@ -52,24 +47,5 @@ temp/
 application-local.yml
 application-local.properties
 
-echo '# IntelliJ IDEA
-.idea/
-*.iml
-*.iws
-*.ipr
-out/
-.idea_modules/
-build/
-target/
-*.class
-.gradle
-gradle-app.setting
-
-# IntelliJ build files
-**/build-history.bin
-**/*.tab
-**/*.tab.*
-**/last-build.bin
-# Spotify API credentials
+# Spotify API credentials (se for relevante para o projeto)
 spotify-credentials.json
-EOF
