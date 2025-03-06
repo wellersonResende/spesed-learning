@@ -1,3 +1,5 @@
+# Create a new .gitignore with the correct content
+cat > .gitignore << 'EOF'
 # Gradle
 .gradle/
 .gradle/**
@@ -52,3 +54,4 @@ application-local.properties
 
 # Spotify API credentials
 spotify-credentials.json
+EOF
