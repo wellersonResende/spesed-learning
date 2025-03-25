@@ -1,0 +1,51 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+**/build-history.bin
+**/*.tab
+**/*.tab.*
+**/last-build.bin
+
+# Spring Boot
+target/
+.spring-boot-devtools
+
+# Compiled class files
+*.class
+
+# Logs
+logs/
+*.log
+log/
+
+# Package files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Virtual machine crash logs
+hs_err_pid*
+
+# Temporary files
+*.tmp
+tmp/
+temp/
+.DS_Store
+
+# Application specific
+application-local.yml
+application-local.properties
+
+# Spotify API credentials (se for relevante para o projeto)
+spotify-credentials.json

@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity
 @Table(name = "content")
-data class Content (val name: String, val description: String, var repetition: Int = 0, val creationDate: LocalDate = LocalDate.now(),@ManyToOne val string: Subject) {
+data class Content(val name: String, val description: String, var repetition: Int = 0, val creationDate: LocalDate = LocalDate.now(),@ManyToOne @JoinColumn(name = "subject_id") val subject: Subject) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: UUID = UUID.randomUUID()

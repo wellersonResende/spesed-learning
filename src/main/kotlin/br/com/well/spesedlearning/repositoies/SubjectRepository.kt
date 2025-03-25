@@ -8,5 +8,4 @@ import java.util.UUID
 
 @Component
 interface SubjectRepository: JpaRepository<Subject, UUID>{
-    override fun findById(uuid: UUID): Optional<Subject>
 }
