@@ -13,4 +13,11 @@ data class Content(val name: String, val description: String, var repetition: In
     override fun toString(): String {
         return "Content(name='$name', description='$description')"
     }
+    val nextRepetition: LocalDate
+        get() = when (repetition) {
+            0 -> creationDate
+            1 -> creationDate.plusDays(1)
+            2 -> creationDate.plusDays(6)
+            else -> creationDate.plusDays(30)
+        }
 }
