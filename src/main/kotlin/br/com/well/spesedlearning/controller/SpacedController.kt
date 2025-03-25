@@ -1,9 +1,12 @@
 package br.com.well.spesedlearning.controller
 
+import br.com.well.spesedlearning.model.Content
 import br.com.well.spesedlearning.model.Subject
+import br.com.well.spesedlearning.repositoies.ContentRepository
 import br.com.well.spesedlearning.repositoies.SubjectRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -16,7 +19,10 @@ import java.util.Optional
 @RequestMapping(value = ["/api/spesedlearning"])
 
 
-class SpacedController (val subjectRepository: SubjectRepository){
+class SpacedController(
+    val subjectRepository: SubjectRepository,
+    private val contentRepository: ContentRepository
+){
     @GetMapping
     fun getAllSubject(): List<Subject> {
         val subjects = subjectRepository.findAll()
@@ -36,5 +42,18 @@ class SpacedController (val subjectRepository: SubjectRepository){
     fun createSubject(@RequestBody subject: Subject): ResponseEntity<Subject> {
         val savedSubject = subjectRepository.save(subject)
         return ResponseEntity.ok(savedSubject)
+    }
+    @PatchMapping("/content/{uuid}")
+    fun updateRepetionCounter(@PathVariable uuid: UUID): ResponseEntity<Subject> {
+        val content: Optional<Content> = contentRepository.findById(uuid)
+        return if (content.isPresent) {
+            val contentToUpdate = content.get()
+            contentToUpdate.repetition += 1
+            contentRepository.save(contentToUpdate)
+            ResponseEntity.ok(contentToUpdate.subject)
+        } else {
+            ResponseEntity.notFound().build()
+        }
+
     }
 }
