@@ -43,14 +43,27 @@ class SpacedController(
         val savedSubject = subjectRepository.save(subject)
         return ResponseEntity.ok(savedSubject)
     }
+    @PostMapping("/content")
+    fun createContest(@RequestBody content: Content): ResponseEntity<Content> {
+       val subjectId = content.subjectID ?: return ResponseEntity.notFound().build()
+        val subject = subjectRepository.findById(subjectId)
+        return if (subject.isPresent) {
+            val savedContent = contentRepository.save(content)
+            subject.get().contentList.add(savedContent)
+            subjectRepository.save(subject.get())
+            ResponseEntity.ok(savedContent)
+        } else {
+            ResponseEntity.notFound().build()
+        }
+    }
     @PatchMapping("/content/{uuid}")
-    fun updateRepetionCounter(@PathVariable uuid: UUID): ResponseEntity<Subject> {
-        val content: Optional<Content> = contentRepository.findById(uuid)
-        return if (content.isPresent) {
-            val contentToUpdate = content.get()
-            contentToUpdate.repetition += 1
-            contentRepository.save(contentToUpdate)
-            ResponseEntity.ok(contentToUpdate.subject)
+    fun updateRepetionCounter(@PathVariable uuid: UUID): ResponseEntity<Content> {
+        val contentOption: Optional<Content> = contentRepository.findById(uuid)
+        return if (contentOption.isPresent) {
+          val content = contentOption.get()
+            content.repetition++
+          val savedContent = contentRepository.save(content)
+            ResponseEntity.ok(savedContent)
         } else {
             ResponseEntity.notFound().build()
         }
